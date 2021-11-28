@@ -13,6 +13,7 @@ OPTIONS = ("Quit", "Multiplayer", "Single-player")
 def draw(window, selected):
     window.fill(BG_COLOR)
     blit_text_center(window, "Title screen")
+    blit_text(window, "Use arrows to select and space to confirm", (0, 0))
 
     for i, option in enumerate(OPTIONS):
         text_pos = (10, HEIGHT - (i + 1) * 22)
