@@ -51,4 +51,6 @@ def multiplayer(mode):
                     mode.board.array[x][y] = 1
                 else:
                     mode.board.array[x][y] = 2
+                mode.board.check_win()
+
                 player_o = not player_o
