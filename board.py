@@ -1,7 +1,9 @@
 import numpy as np
 import pygame.image
 
-SPRITE = {0: pygame.image.load("assets/tile-empty.png")}
+SPRITE = {0: pygame.image.load("assets/tile-empty.png"),
+          1: pygame.image.load("assets/tile-o.png"),
+          2: pygame.image.load("assets/tile-x.png")}
 
 
 class Board:

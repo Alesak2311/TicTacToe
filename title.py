@@ -66,9 +66,10 @@ def title_screen():
                         unpause = True
                         done = True
                         break
+    pygame.display.quit()
+
     if selected == 0:
         quit_game()
 
     size = 10
-
     return Mode(selected, size)
