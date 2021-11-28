@@ -1,5 +1,6 @@
 import pygame
 from tools import blit_text_center, blit_text, quit_game
+from mode import Mode
 
 WIDTH = 800
 HEIGHT = 400
@@ -64,3 +65,9 @@ def title_screen():
                         unpause = True
                         done = True
                         break
+    if selected == 0:
+        quit_game()
+
+    size = 10
+
+    return Mode(selected, size)
