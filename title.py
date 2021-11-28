@@ -7,7 +7,7 @@ HEIGHT = 400
 
 BG_COLOR = (255, 255, 255)
 
-OPTIONS = ("Quit", "Multiplayer", "Single-player")
+OPTIONS = ("Quit", "Single-player", "Multiplayer")
 
 
 def draw(window, selected):
