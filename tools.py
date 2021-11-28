@@ -20,3 +20,10 @@ def blit_text_center(window, string, font=MAIN_FONT):
 
     window.blit(text, text_pos)
     pygame.display.update()
+
+
+def blit_text(window, string, text_pos, font=MAIN_FONT):
+    text = font.render(string, True, BLACK)
+
+    window.blit(text, text_pos)
+    pygame.display.update()
