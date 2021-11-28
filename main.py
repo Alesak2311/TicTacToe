@@ -1,7 +1,8 @@
+from title import title_screen
 
 
 def main():
-    print("Hello World!")
+    title_screen()
 
 
 if __name__ == "__main__":
