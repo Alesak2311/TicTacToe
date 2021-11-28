@@ -1,6 +1,6 @@
 import pygame
 from math import ceil
-from tools import quit_game
+from tools import quit_game, blit_text_center
 
 BG_COLOR = (255, 255, 255)
 
@@ -35,6 +35,7 @@ def multiplayer(mode):
 
     done = False
     player_o = True
+    winner = None
     while not done:
         clock.tick(30)
 
@@ -47,10 +48,14 @@ def multiplayer(mode):
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 y, x = tile
-                if player_o:
-                    mode.board.array[x][y] = 1
-                else:
-                    mode.board.array[x][y] = 2
-                mode.board.check_win()
+                if mode.board.array[x][y] == 0:
+                    if player_o:
+                        mode.board.array[x][y] = 1
+                    else:
+                        mode.board.array[x][y] = 2
+                    winner = mode.board.check_win()
 
-                player_o = not player_o
+                    player_o = not player_o
+        if winner is not None:
+            pygame.display.quit()
+            return winner

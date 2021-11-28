@@ -29,7 +29,7 @@ class Board:
                              tile != 0)
 
                 if condition:
-                    print(f"Player {tile} wins")
+                    return tile
 
                 # y = -x
                 condition = (self.array[r][t + 4] == self.array[r + 1][t + 3] and
@@ -39,7 +39,7 @@ class Board:
                              self.array[r][t + 4] != 0)
 
                 if condition:
-                    print(f"Player {self.array[r][t + 4]} wins")
+                    return self.array[r][t + 4]
 
         # check row
         for r, row in enumerate(self.array):
@@ -51,7 +51,7 @@ class Board:
                              tile != 0)
 
                 if condition:
-                    print(f"Player {tile} wins")
+                    return tile
 
         # check column
         for r, row in enumerate(self.array[:len(self.array) - 4]):
@@ -63,4 +63,5 @@ class Board:
                              self.array[r + 3][t] == self.array[r + 4][t] and
                              tile != 0)
                 if condition:
-                    print(f"Player {tile} wins")
+                    return tile
+        return
