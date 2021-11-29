@@ -1,6 +1,7 @@
 import pygame
 from math import ceil
 from tools import quit_game
+from random import randint
 
 BG_COLOR = (255, 255, 255)
 
@@ -28,13 +29,22 @@ def draw(window, board, tile):
     pygame.display.update()
 
 
-def multiplayer(mode):
+def computer_tile(board):
+    x = randint(0, board.size - 1)
+    y = randint(0, board.size - 1)
+    while board.array[x][y] != 0:
+        x = randint(0, board.size - 1)
+        y = randint(0, board.size - 1)
+
+    return y, x
+
+
+def single_player(mode):
     width = height = mode.board.size * 40
     window = pygame.display.set_mode((width, height))
     clock = pygame.time.Clock()
 
     done = False
-    player_o = True
     winner = None
     while not done:
         clock.tick(30)
@@ -49,13 +59,13 @@ def multiplayer(mode):
             if event.type == pygame.MOUSEBUTTONDOWN:
                 y, x = tile
                 if mode.board.array[x][y] == 0:
-                    if player_o:
-                        mode.board.array[x][y] = 1
-                    else:
-                        mode.board.array[x][y] = 2
+                    mode.board.array[x][y] = 1
+
+                    y, x = computer_tile(mode.board)
+                    mode.board.array[x][y] = 2
+
                     winner = mode.board.check_win()
 
-                    player_o = not player_o
         if winner is not None:
             pygame.display.quit()
             return winner
