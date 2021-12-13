@@ -71,5 +71,5 @@ def title_screen():
     if selected == 0:
         quit_game()
 
-    size = 10
+    size = 20
     return Mode(selected, size)
