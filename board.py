@@ -17,6 +17,20 @@ class Board:
             for t, tile in enumerate(row):
                 window.blit(SPRITE[tile], (t * 40, r * 40))
 
+    def check_row(self):
+        longest = None
+        for r, row in enumerate(self.array):
+            for t, tile in enumerate(row):
+                if tile != 0:
+                    i = 0
+                    while self.array[r][t + i] == self.array[r][t + i + 1]:
+                        i += 1
+                        if t + i + 1 > len(row):
+                            break
+                    if i > longest:
+                        longest = i
+        return longest
+
     def check_win(self):
         # check diagonal
         for r, row in enumerate(self.array[:len(self.array) - 4]):

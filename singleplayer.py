@@ -1,32 +1,6 @@
 import pygame
-from math import ceil
-from tools import quit_game
+from tools import quit_game, get_tile, draw
 from random import randint
-
-BG_COLOR = (255, 255, 255)
-
-HIGHLIGHT = pygame.image.load("assets/tile-highlight.png")
-
-
-def get_tile():
-    mouse_pos = pygame.mouse.get_pos()
-    tile = tuple(map(lambda coord: ceil(coord / 40) - 1, mouse_pos))
-    return tile
-
-
-def highlight_tile(window, tile):
-    highlight_pos = tuple(map(lambda coord: coord * 40, tile))
-    window.blit(HIGHLIGHT, highlight_pos)
-
-
-def draw(window, board, tile):
-    window.fill(BG_COLOR)
-
-    board.draw_board(window)
-
-    highlight_tile(window, tile)
-
-    pygame.display.update()
 
 
 def computer_tile(board):
