@@ -1,6 +1,5 @@
 import pygame
 from tools import blit_text_center, blit_text, quit_game
-from mode import Mode
 from board import MultiBoard, SingleBoard
 
 WIDTH = 800
