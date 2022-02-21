@@ -67,10 +67,17 @@ class Board:
             for c, column in enumerate(row):
                 if column == 1:
                     for direction in range(8):
-                        self.o_lines.append(OLine(self.search_area, (r, c), direction))
+                        line = OLine(self.search_area, (r, c), direction)
+                        if line.value > 0:
+                            self.o_lines.append(line)
                 if column == 2:
                     for direction in range(8):
-                        self.x_lines.append(XLine(self.search_area, (r, c), direction))
+                        line = XLine(self.search_area, (r, c), direction)
+                        if line.value > 0:
+                            self.x_lines.append(line)
+
+        self.o_lines.sort(key=lambda x: x.value, reverse=True)
+        self.x_lines.sort(key=lambda x: x.value, reverse=True)
 
 
 class MultiBoard(Board):

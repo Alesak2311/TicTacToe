@@ -31,14 +31,20 @@ class Line:
         return
 
     def __repr__(self):
-        return repr(self.line)
+        return str(self.value)
 
 
 class OLine(Line):
     def evaluate(self):
-        pass
+        if 2 in self.line:
+            return 0
+
+        return self.line.count(1)
 
 
 class XLine(Line):
     def evaluate(self):
-        pass
+        if 1 in self.line:
+            return 0
+
+        return self.line.count(2)
