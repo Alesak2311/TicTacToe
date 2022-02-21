@@ -7,6 +7,8 @@ class Line:
 
         self.line = self.make_line()
 
+        self.value = self.evaluate()
+
     def make_line(self):
         if self.direction == 0:
             return [self.area[4 - i][4] for i in range(5)]
@@ -25,5 +27,18 @@ class Line:
         else:
             return [self.area[4 - i][4 - i] for i in range(5)]
 
+    def evaluate(self):
+        return
+
     def __repr__(self):
         return repr(self.line)
+
+
+class OLine(Line):
+    def evaluate(self):
+        pass
+
+
+class XLine(Line):
+    def evaluate(self):
+        pass

@@ -1,6 +1,6 @@
 import numpy as np
 import pygame.image
-from line import Line
+from line import OLine, XLine
 
 SPRITE = {0: pygame.image.load("assets/tile-empty.png"),
           1: pygame.image.load("assets/tile-o.png"),
@@ -14,7 +14,8 @@ class Board:
         self.array = np.zeros((size, size), dtype=np.int64)
         self.search_area = self.array
 
-        self.lines = []
+        self.o_lines = []
+        self.x_lines = []
 
     def draw_board(self, window):
         for r, row in enumerate(self.array):
@@ -59,13 +60,17 @@ class Board:
         self.search_area[4:-4, 4:-4] = self.array[top:bottom, left:right]
 
     def scan_lines(self):
-        self.lines = []
+        self.o_lines = []
+        self.x_lines = []
 
         for r, row in enumerate(self.search_area):
             for c, column in enumerate(row):
-                if column != 0:
+                if column == 1:
                     for direction in range(8):
-                        self.lines.append(Line(self.search_area, (r, c), direction))
+                        self.o_lines.append(OLine(self.search_area, (r, c), direction))
+                if column == 2:
+                    for direction in range(8):
+                        self.x_lines.append(XLine(self.search_area, (r, c), direction))
 
 
 class MultiBoard(Board):
