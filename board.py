@@ -16,3 +16,31 @@ class Board:
         for r, row in enumerate(self.array):
             for t, tile in enumerate(row):
                 window.blit(SPRITE[tile], (t * 40, r * 40))
+
+    def place_o(self, tile):
+        self.array[tile[1]][tile[0]] = 1
+
+    def place_x(self, tile):
+        self.array[tile[1]][tile[0]] = 2
+
+
+class MultiBoard(Board):
+    def __init__(self, size):
+        super().__init__(size)
+
+        self.turn = 1
+
+    def place_tile(self, tile):
+        if not self.array[tile[1]][tile[0]] == 0:
+            return
+
+        if self.turn == 1:
+            self.place_o(tile)
+            self.turn = 2
+        else:
+            self.place_x(tile)
+            self.turn = 1
+
+
+class SingleBoard(Board):
+    pass

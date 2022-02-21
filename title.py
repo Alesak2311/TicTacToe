@@ -1,6 +1,7 @@
 import pygame
 from tools import blit_text_center, blit_text, quit_game
 from mode import Mode
+from board import MultiBoard, SingleBoard
 
 WIDTH = 800
 HEIGHT = 400
@@ -72,4 +73,8 @@ def title_screen():
         quit_game()
 
     size = 10
-    return Mode(selected, size)
+
+    if selected == 2:
+        return MultiBoard(size)
+    else:
+        return SingleBoard(size)

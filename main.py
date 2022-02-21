@@ -1,12 +1,11 @@
 from title import title_screen
-from multiplayer import multiplayer
+from game import game
 
 
 def main():
-    mode = title_screen()
+    board = title_screen()
 
-    if mode.game_mode == 2:
-        multiplayer(mode)
+    game(board)
 
 
 if __name__ == "__main__":
