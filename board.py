@@ -11,6 +11,7 @@ class Board:
         self.size = size
 
         self.array = np.zeros((size, size), dtype=np.int64)
+        self.search_area = self.array
 
     def draw_board(self, window):
         for r, row in enumerate(self.array):
@@ -22,6 +23,36 @@ class Board:
 
     def place_x(self, tile):
         self.array[tile[1]][tile[0]] = 2
+
+    def shrink_top(self):
+        for r, row in enumerate(self.array):
+            if 1 in row or 2 in row:
+                return r
+
+    def shrink_bottom(self):
+        for r, row in reversed(list(enumerate(self.array))):
+            if 1 in row or 2 in row:
+                return r + 1
+
+    def shrink_left(self):
+        for column in range(len(self.array[0])):
+            for row in self.array:
+                if row[column] == 1 or row[column] == 2:
+                    return column
+
+    def shrink_right(self):
+        for column in reversed(range(len(self.array[0]))):
+            for row in self.array:
+                if row[column] == 1 or row[column] == 2:
+                    return column + 1
+
+    def shrink_area(self):
+        top = self.shrink_top()
+        bottom = self.shrink_bottom()
+        left = self.shrink_left()
+        right = self.shrink_right()
+
+        self.search_area = self.array[top:bottom, left:right]
 
 
 class MultiBoard(Board):
@@ -40,6 +71,8 @@ class MultiBoard(Board):
         else:
             self.place_x(tile)
             self.turn = 1
+
+        self.shrink_area()
 
 
 class SingleBoard(Board):
