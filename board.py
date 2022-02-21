@@ -72,18 +72,17 @@ class MultiBoard(Board):
     def __init__(self, size):
         super().__init__(size)
 
-        self.turn = 1
+        self.turn_o = True
 
     def place_tile(self, tile):
         if not self.array[tile[1]][tile[0]] == 0:
             return
 
-        if self.turn == 1:
+        if self.turn_o:
             self.place_o(tile)
-            self.turn = 2
         else:
             self.place_x(tile)
-            self.turn = 1
+        self.turn_o = not self.turn_o
 
         self.shrink_area()
         self.scan_lines()
