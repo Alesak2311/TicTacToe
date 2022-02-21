@@ -52,7 +52,8 @@ class Board:
         left = self.shrink_left()
         right = self.shrink_right()
 
-        self.search_area = self.array[top:bottom, left:right]
+        self.search_area = np.zeros((bottom - top + 8, right - left + 8), dtype=np.int64)
+        self.search_area[4:-4, 4:-4] = self.array[top:bottom, left:right]
 
 
 class MultiBoard(Board):
