@@ -46,3 +46,7 @@ def game(board):
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 board.place_tile(tile)
+                if board.winner is not None:
+                    done = True
+
+    pygame.display.quit()
