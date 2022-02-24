@@ -27,8 +27,14 @@ class Board:
     def place_o(self, tile):
         self.array[tile[1]][tile[0]] = 1
 
+        self.shrink_area()
+        self.scan_lines()
+
     def place_x(self, tile):
         self.array[tile[1]][tile[0]] = 2
+
+        self.shrink_area()
+        self.scan_lines()
 
     def shrink_top(self):
         for r, row in enumerate(self.array):
@@ -106,7 +112,7 @@ class MultiBoard(Board):
         self.turn_o = True
 
     def place_tile(self, tile):
-        if not self.array[tile[1]][tile[0]] == 0:
+        if self.array[tile[1]][tile[0]] != 0:
             return
 
         if self.turn_o:
@@ -114,9 +120,6 @@ class MultiBoard(Board):
         else:
             self.place_x(tile)
         self.turn_o = not self.turn_o
-
-        self.shrink_area()
-        self.scan_lines()
 
         self.check_win()
 
