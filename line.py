@@ -17,19 +17,19 @@ class Line:
 
         self.line = self.make_line()
 
-        self.value = self.evaluate()
-
     def make_line(self):
         return [self.area[4 + self.vector[0] * i][4 + self.vector[1] * i] for i in range(5)]
-
-    def evaluate(self):
-        return
 
     def __repr__(self):
         return repr(self.line)
 
 
 class OLine(Line):
+    def __init__(self, area, start_point, direction):
+        super().__init__(area, start_point, direction)
+
+        self.value = self.evaluate()
+
     def evaluate(self):
         if 2 in self.line:
             return 0
@@ -38,6 +38,11 @@ class OLine(Line):
 
 
 class XLine(Line):
+    def __init__(self, area, start_point, direction):
+        super().__init__(area, start_point, direction)
+
+        self.value = self.evaluate()
+
     def evaluate(self):
         if 1 in self.line:
             return 0
