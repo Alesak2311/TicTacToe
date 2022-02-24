@@ -73,7 +73,7 @@ class Board:
     def scan_x_lines(self):
         for r, row in enumerate(self.search_area):
             for c, column in enumerate(row):
-                if column == 1:
+                if column == 2:
                     for direction in range(8):
                         line = XLine(self.search_area, (r, c), direction)
                         if line.value > 0:
