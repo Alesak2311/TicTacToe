@@ -41,6 +41,11 @@ class Line:
             return [self.area[self.start_point_y + self.vector[0] * i]
                     [self.start_point_x + self.vector[1] * i] for i in range(5)]
 
+    def get_free(self):
+        for t, tile in enumerate(self.tiles):
+            if tile == 0:
+                return self.start_point_x + self.vector[1] * t, self.start_point_y + self.vector[0] * t
+
     def __repr__(self):
         return repr(self.tiles)
 

@@ -91,4 +91,26 @@ class MultiBoard(Board):
 
 
 class SingleBoard(Board):
-    pass
+    def place_tile(self, tile):
+        if self.array[tile[1]][tile[0]] != 0:
+            return
+
+        self.place_o(tile)
+
+        self.place_x(self.computer_move())
+
+        self.check_win()
+
+    def computer_move(self):
+        if len(self.x_lines) == 0:
+            return self.o_lines[0].get_free()
+
+        o_best = self.o_lines[0]
+        x_best = self.x_lines[0]
+
+        if o_best.value > x_best.value:
+            move = o_best.get_free()
+        else:
+            move = x_best.get_free()
+
+        return move
