@@ -27,11 +27,13 @@ class Board:
         self.array[tile[1]][tile[0]] = 1
 
         self.scan_lines()
+        self.check_win()
 
     def place_x(self, tile):
         self.array[tile[1]][tile[0]] = 2
 
         self.scan_lines()
+        self.check_win()
 
     def scan_o_lines(self):
         for r, row in enumerate(self.array):
@@ -87,8 +89,6 @@ class MultiBoard(Board):
             self.place_x(tile)
         self.turn_o = not self.turn_o
 
-        self.check_win()
-
 
 class SingleBoard(Board):
     def place_tile(self, tile):
@@ -98,8 +98,6 @@ class SingleBoard(Board):
         self.place_o(tile)
 
         self.place_x(self.computer_move())
-
-        self.check_win()
 
     def computer_move(self):
         if len(self.x_lines) == 0:
