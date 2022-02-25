@@ -12,7 +12,6 @@ class Board:
         self.size = size
 
         self.array = np.zeros((size, size), dtype=np.int64)
-        self.search_area = self.array
 
         self.o_lines = []
         self.x_lines = []
@@ -27,61 +26,28 @@ class Board:
     def place_o(self, tile):
         self.array[tile[1]][tile[0]] = 1
 
-        self.shrink_area()
         self.scan_lines()
 
     def place_x(self, tile):
         self.array[tile[1]][tile[0]] = 2
 
-        self.shrink_area()
         self.scan_lines()
 
-    def shrink_top(self):
-        for r, row in enumerate(self.array):
-            if 1 in row or 2 in row:
-                return r
-
-    def shrink_bottom(self):
-        for r, row in reversed(list(enumerate(self.array))):
-            if 1 in row or 2 in row:
-                return r + 1
-
-    def shrink_left(self):
-        for column in range(len(self.array[0])):
-            for row in self.array:
-                if row[column] == 1 or row[column] == 2:
-                    return column
-
-    def shrink_right(self):
-        for column in reversed(range(len(self.array[0]))):
-            for row in self.array:
-                if row[column] == 1 or row[column] == 2:
-                    return column + 1
-
-    def shrink_area(self):
-        top = self.shrink_top()
-        bottom = self.shrink_bottom()
-        left = self.shrink_left()
-        right = self.shrink_right()
-
-        self.search_area = np.zeros((bottom - top + 8, right - left + 8), dtype=np.int64)
-        self.search_area[4:-4, 4:-4] = self.array[top:bottom, left:right]
-
     def scan_o_lines(self):
-        for r, row in enumerate(self.search_area):
+        for r, row in enumerate(self.array):
             for c, column in enumerate(row):
                 if column == 1:
                     for direction in range(8):
-                        line = OLine(self.search_area, (r, c), direction)
+                        line = OLine(self.array, (r, c), direction)
                         if line.value > 0:
                             self.o_lines.append(line)
 
     def scan_x_lines(self):
-        for r, row in enumerate(self.search_area):
+        for r, row in enumerate(self.array):
             for c, column in enumerate(row):
                 if column == 2:
                     for direction in range(8):
-                        line = XLine(self.search_area, (r, c), direction)
+                        line = XLine(self.array, (r, c), direction)
                         if line.value > 0:
                             self.x_lines.append(line)
 

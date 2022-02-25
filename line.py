@@ -13,15 +13,36 @@ class Line:
         self.direction = direction
         self.vector = Line.VECTORS[direction]
 
-        self.area = area[self.start_point_y - 4:self.start_point_y + 5, self.start_point_x - 4:self.start_point_x + 5]
+        self.area = area
 
-        self.line = self.make_line()
+        self.tiles = self.make_line()
+
+    def check_bounds(self):
+        if self.vector[0] == 1:
+            if len(self.area[self.start_point_y:]) < 5:
+                return True
+        elif self.vector[0] == -1:
+            if len(self.area[:self.start_point_y]) < 4:
+                return True
+
+        if self.vector[1] == 1:
+            if len(self.area[0][self.start_point_x:]) < 5:
+                return True
+        elif self.vector[1] == -1:
+            if len(self.area[0][:self.start_point_x]) < 4:
+                return True
+
+        return False
 
     def make_line(self):
-        return [self.area[4 + self.vector[0] * i][4 + self.vector[1] * i] for i in range(5)]
+        if self.check_bounds():
+            return []
+        else:
+            return [self.area[self.start_point_y + self.vector[0] * i]
+                    [self.start_point_x + self.vector[1] * i] for i in range(5)]
 
     def __repr__(self):
-        return repr(self.line)
+        return repr(self.tiles)
 
 
 class OLine(Line):
@@ -31,10 +52,10 @@ class OLine(Line):
         self.value = self.evaluate()
 
     def evaluate(self):
-        if 2 in self.line:
+        if 2 in self.tiles:
             return 0
 
-        return self.line.count(1)
+        return self.tiles.count(1)
 
 
 class XLine(Line):
@@ -44,7 +65,7 @@ class XLine(Line):
         self.value = self.evaluate()
 
     def evaluate(self):
-        if 1 in self.line:
+        if 1 in self.tiles:
             return 0
 
-        return self.line.count(2)
+        return self.tiles.count(2)
