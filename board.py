@@ -97,6 +97,9 @@ class SingleBoard(Board):
 
         self.place_o(tile)
 
+        if self.winner is not None:
+            return
+
         self.place_x(self.computer_move())
 
     def computer_move(self):
